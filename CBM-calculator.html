@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free online CBM calculator for shipping containers. Calculate volume in cubic meters (CBM) for your cargo easily." />
+  <meta name="keywords" content="CBM calculator, shipping container, volume calculator, freight, cubic meter" />
+  <meta name="author" content="YourCompanyName" />
+  <title>CBM Calculator - Shipping Container Volume Tool</title>
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #f8f9fa;
+      --accent-color: #17a2b8;
+      --background-color: #f4f4f4;
+      --card-bg: #ffffff;
+      --text-color: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header,
+    footer {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 1.5em 1em;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 2em;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5em;
+    }
+
+    .form-group {
+      margin-bottom: 1.5em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.6em;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 1em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent-color);
+      outline: none;
+      box-shadow: 0 0 5px rgba(23, 162, 184, 0.5);
+    }
+
+    button {
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .results {
+      margin-top: 2em;
+      padding: 1.5em;
+      background: var(--secondary-color);
+      border-left: 5px solid var(--accent-color);
+      border-radius: 8px;
+    }
+
+    .ad-container {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.95em;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 1.2em;
+      }
+    }
+  </style>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>CBM Calculator for Shipping</h1>
+  </header>
+
+  <!-- Top Ad Banner -->
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-0000000000000000" <!-- REPLACE with your actual AdSense ID -->
+      data-ad-slot="1234567890"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <main>
+    <form id="cbm-form">
+      <div class="form-group">
+        <label for="units">Measurement Unit</label>
+        <select id="units">
+          <option value="cm">Centimeters (cm)</option>
+          <option value="in">Inches (in)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="boxes">Number of Boxes</label>
+        <input type="number" id="boxes" min="1" required />
+      </div>
+      <div class="form-group">
+        <label for="length">Length</label>
+        <input type="number" id="length" step="any" required />
+      </div>
+      <div class="form-group">
+        <label for="width">Width</label>
+        <input type="number" id="width" step="any" required />
+      </div>
+      <div class="form-group">
+        <label for="height">Height</label>
+        <input type="number" id="height" step="any" required />
+      </div>
+      <button type="submit">Calculate CBM</button>
+    </form>
+
+    <div class="results" id="results" style="display:none">
+      <p><strong>CBM per box:</strong> <span id="cbmPerBox"></span> m³</p>
+      <p><strong>Total CBM:</strong> <span id="totalCbm"></span> m³</p>
+    </div>
+  </main>
+
+  <!-- Bottom Ad Banner -->
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-0000000000000000" <!-- REPLACE with your actual AdSense ID -->
+      data-ad-slot="0987654321"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 YourCompanyName - All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('cbm-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const boxes = parseFloat(document.getElementById('boxes').value);
+      const length = parseFloat(document.getElementById('length').value);
+      const width = parseFloat(document.getElementById('width').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const units = document.getElementById('units').value;
+
+      if (isNaN(boxes) || isNaN(length) || isNaN(width) || isNaN(height)) {
+        alert('Please fill in all fields with valid numbers.');
+        return;
+      }
+
+      const conversionFactor = units === 'cm' ? 100 : 39.3701;
+      const lengthM = length / conversionFactor;
+      const widthM = width / conversionFactor;
+      const heightM = height / conversionFactor;
+
+      const cbmPerBox = (lengthM * widthM * heightM).toFixed(4);
+      const totalCbm = (cbmPerBox * boxes).toFixed(4);
+
+      document.getElementById('cbmPerBox').textContent = cbmPerBox;
+      document.getElementById('totalCbm').textContent = totalCbm;
+      document.getElementById('results').style.display = 'block';
+    });
+  </script>
+</body>
+
+</html>
