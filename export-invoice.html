@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Generate export invoices online with our free and responsive export invoice generator tool. SEO optimized and easy to use." />
+  <meta name="keywords" content="Export Invoice Generator, Online Invoice Tool, Free Invoice Maker, Export Billing" />
+  <meta name="author" content="Your Company Name" />
+  <title>Online Export Invoice Generator Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      color: #333;
+    }
+    .container {
+      max-width: 960px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #00796b;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    input, textarea, select {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      padding: 12px 20px;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #004d40;
+    }
+    .invoice-preview {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px dashed #ccc;
+    }
+    .invoice-preview p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    .invoice-actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .invoice-actions button {
+      margin: 5px;
+    }
+    .ad-space {
+      width: 100%;
+      height: 90px;
+      margin: 30px 0;
+      background: #f1f1f1;
+      text-align: center;
+      line-height: 90px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+    @media(max-width: 600px) {
+      .container { padding: 20px; }
+      h1, h2 { font-size: 1.5rem; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Export Invoice Generator</h1>
+    <div class="ad-space">
+      <!-- Google AdSense Placeholder -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <form id="invoiceForm">
+      <h2>Invoice Details</h2>
+      <input type="text" name="invoiceNumber" placeholder="Invoice Number" required />
+      <input type="date" name="invoiceDate" required />
+      <input type="text" name="exporterName" placeholder="Exporter Name" required />
+      <input type="text" name="exporterAddress" placeholder="Exporter Address" required />
+      <input type="text" name="consigneeName" placeholder="Consignee Name" required />
+      <input type="text" name="consigneeAddress" placeholder="Consignee Address" required />
+      <input type="text" name="countryOfOrigin" placeholder="Country of Origin" required />
+      <input type="text" name="countryOfDestination" placeholder="Country of Destination" required />
+      <textarea name="productDetails" rows="5" placeholder="Product Details (Include Description, Quantity, Unit Price, HS Code)" required></textarea>
+      <input type="number" name="totalAmount" placeholder="Total Amount ($)" step="0.01" required />
+      <button type="submit">Generate Invoice</button>
+    </form>
+
+    <div class="invoice-preview" id="invoicePreview" style="display:none;">
+      <h2>Generated Invoice</h2>
+      <div id="output"></div>
+      <div class="invoice-actions">
+        <button onclick="window.print()">Print Invoice</button>
+        <button onclick="downloadPDF()">Export as PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second ad space -->
+  <div class="container ad-space">
+    <!-- Google AdSense Placeholder -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
+         data-ad-slot="9876543210"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <script>
+    document.getElementById('invoiceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = {
+        invoiceNumber: form.invoiceNumber.value,
+        invoiceDate: form.invoiceDate.value,
+        exporterName: form.exporterName.value,
+        exporterAddress: form.exporterAddress.value,
+        consigneeName: form.consigneeName.value,
+        consigneeAddress: form.consigneeAddress.value,
+        countryOfOrigin: form.countryOfOrigin.value,
+        countryOfDestination: form.countryOfDestination.value,
+        productDetails: form.productDetails.value,
+        totalAmount: form.totalAmount.value
+      };
+
+      const output = `
+        <p><strong>Invoice Number:</strong> ${data.invoiceNumber}</p>
+        <p><strong>Date:</strong> ${data.invoiceDate}</p>
+        <p><strong>Exporter:</strong> ${data.exporterName}<br>${data.exporterAddress}</p>
+        <p><strong>Consignee:</strong> ${data.consigneeName}<br>${data.consigneeAddress}</p>
+        <p><strong>Country of Origin:</strong> ${data.countryOfOrigin}</p>
+        <p><strong>Country of Destination:</strong> ${data.countryOfDestination}</p>
+        <p><strong>Product Details:</strong><br>${data.productDetails.replace(/\n/g, '<br>')}</p>
+        <p><strong>Total Amount:</strong> $${parseFloat(data.totalAmount).toFixed(2)}</p>
+      `;
+
+      document.getElementById('output').innerHTML = output;
+      document.getElementById('invoicePreview').style.display = 'block';
+    });
+
+    async function downloadPDF() {
+      const {{ jsPDF }} = window.jspdf;
+      const doc = new jsPDF();
+      const content = document.getElementById('output').innerText;
+      const lines = doc.splitTextToSize(content, 180);
+      doc.text(lines, 10, 10);
+      doc.save('export-invoice.pdf');
+    }
+  </script>
+
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</body>
+</html>
